@@ -1,5 +1,7 @@
 package com.erp.service;
 
+import java.util.List;
+
 import com.erp.entity.PurchaseCreationEntity;
 
 public interface PurchaseCreationService {
@@ -11,5 +13,7 @@ public interface PurchaseCreationService {
 	public String deletePurchaseById(Integer id);
 
 	public PurchaseCreationEntity updatePurchase(PurchaseCreationEntity entities);
+	
+	public List<PurchaseCreationEntity> findAllByCompanyIdAndUserId(Long companyId, Long userId);
 
 }

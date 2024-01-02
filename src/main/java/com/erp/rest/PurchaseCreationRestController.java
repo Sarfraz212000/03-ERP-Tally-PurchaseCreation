@@ -1,5 +1,7 @@
 package com.erp.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +20,10 @@ import com.erp.service.PurchaseCreationService;
 @RestController
 @RequestMapping("/erptally")
 public class PurchaseCreationRestController {
-	
+
 	@Autowired
 	private PurchaseCreationService Services;
-	
+
 	@PostMapping("/save")
 	public ResponseEntity<String> savePurchase(@RequestBody PurchaseCreationEntity entity) {
 		Boolean saveOrder = Services.savePurchase(entity);
@@ -31,8 +33,6 @@ public class PurchaseCreationRestController {
 		return new ResponseEntity<String>("purchase cration not save", HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
-
-	
 
 	@GetMapping("purchase/{id}")
 	public ResponseEntity<PurchaseCreationEntity> getByIdPurchase(@PathVariable Integer id) {
@@ -62,6 +62,16 @@ public class PurchaseCreationRestController {
 			return new ResponseEntity<>(updateOrderDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+
+	@GetMapping("purchase/{companyId}/{userId}")
+	public ResponseEntity<List<PurchaseCreationEntity>> findAllPurchaseByCompanyIdOrUserId(@PathVariable Long companyId,
+			@PathVariable Long userId) {
+		List<PurchaseCreationEntity> entities = Services.findAllByCompanyIdAndUserId(companyId, userId);
+		if (!entities.isEmpty()) {
+			return new ResponseEntity<List<PurchaseCreationEntity>>(entities, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<PurchaseCreationEntity>>(entities, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 }

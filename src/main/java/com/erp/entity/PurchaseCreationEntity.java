@@ -53,5 +53,5 @@ public class PurchaseCreationEntity {
 
 	private Long userId;
 
-	private Long compid;
+	private Long companyId;
 }

@@ -1,5 +1,6 @@
 package com.erp.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.erp.entity.PurchaseCreationEntity;
 import com.erp.repo.PurchaseCreationRepo;
 import com.erp.service.PurchaseCreationService;
+
 @Service
 public class PurchaseCreationServiceImpl implements PurchaseCreationService {
 
@@ -46,6 +48,12 @@ public class PurchaseCreationServiceImpl implements PurchaseCreationService {
 		repo.save(entity);
 
 		return entity;
+	}
+
+	@Override
+	public List<PurchaseCreationEntity> findAllByCompanyIdAndUserId(Long companyId, Long userId) {
+		return repo.findAllByCompanyIdAndUserId(companyId, userId);
+
 	}
 
 }
