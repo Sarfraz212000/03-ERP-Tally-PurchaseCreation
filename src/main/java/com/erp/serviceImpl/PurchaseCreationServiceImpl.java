@@ -42,18 +42,38 @@ public class PurchaseCreationServiceImpl implements PurchaseCreationService {
 	}
 
 	@Override
-	public PurchaseCreationEntity updatePurchase(PurchaseCreationEntity entities) {
-		PurchaseCreationEntity entity = repo.findById(entities.getPurchaseId()).get();
-		BeanUtils.copyProperties(entities, entity);
-		repo.save(entity);
-
-		return entity;
+	public PurchaseCreationEntity updatePurchase(PurchaseCreationEntity entities,Integer purchaseId) {
+		Optional<PurchaseCreationEntity> optionalId = repo.findById(purchaseId);
+		if (optionalId.isPresent()) {
+			PurchaseCreationEntity entity = optionalId.get();
+			BeanUtils.copyProperties(entities, entity);
+			entity.setPurchaseId(purchaseId);
+		    return	repo.save(entity);
+			
+		}
+		return null;
 	}
 
 	@Override
 	public List<PurchaseCreationEntity> findAllByCompanyIdAndUserId(Long companyId, Long userId) {
 		return repo.findAllByCompanyIdAndUserId(companyId, userId);
 
+	}
+
+	@Override
+	public List<PurchaseCreationEntity> findByCompanyId(Long companyId) {
+		return repo.findAllByCompanyId(companyId);
+	}
+
+	@Override
+	public List<PurchaseCreationEntity> findByUserId(Long userId) {
+		return repo.findAllByUserId(userId);
+		
+	}
+
+	@Override
+	public List<PurchaseCreationEntity> getAllPurchaseCreation() {
+		return repo.findAll();
 	}
 
 }

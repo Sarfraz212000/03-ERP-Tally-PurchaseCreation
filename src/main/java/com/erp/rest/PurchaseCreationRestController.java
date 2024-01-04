@@ -53,9 +53,10 @@ public class PurchaseCreationRestController {
 		return new ResponseEntity<>(deleteOrder, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
-	public ResponseEntity<PurchaseCreationEntity> updatePurchase(@RequestBody PurchaseCreationEntity entity) {
-		PurchaseCreationEntity updateOrderDetails = Services.updatePurchase(entity);
+	@PutMapping("/update/{purchaseId}")
+	public ResponseEntity<PurchaseCreationEntity> updatePurchase(@RequestBody PurchaseCreationEntity entity,
+			@PathVariable Integer purchaseId) {
+		PurchaseCreationEntity updateOrderDetails = Services.updatePurchase(entity, purchaseId);
 		if (updateOrderDetails != null) {
 			return new ResponseEntity<>(updateOrderDetails, HttpStatus.OK);
 		} else {
@@ -72,6 +73,26 @@ public class PurchaseCreationRestController {
 			return new ResponseEntity<List<PurchaseCreationEntity>>(entities, HttpStatus.OK);
 		}
 		return new ResponseEntity<List<PurchaseCreationEntity>>(entities, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@GetMapping("/getcompany/{companyId}")
+	public ResponseEntity<List<PurchaseCreationEntity>> getByCompanyId(@PathVariable Long companyId) {
+		List<PurchaseCreationEntity> entity = Services.findByCompanyId(companyId);
+		return new ResponseEntity<List<PurchaseCreationEntity>>(entity, HttpStatus.OK);
+
+	}
+
+	@GetMapping("/getuser/{userId}")
+	public ResponseEntity<List<PurchaseCreationEntity>> getByUserId(@PathVariable Long userId) {
+		List<PurchaseCreationEntity> entity = Services.findByUserId(userId);
+		return new ResponseEntity<List<PurchaseCreationEntity>>(entity, HttpStatus.OK);
+
+	}
+
+	@GetMapping("/getAllpurchases")
+	public ResponseEntity<List<PurchaseCreationEntity>> getAllpurchaseCreation() {
+		List<PurchaseCreationEntity> allPurchaseCreation = Services.getAllPurchaseCreation();
+		return new ResponseEntity<List<PurchaseCreationEntity>>(allPurchaseCreation, HttpStatus.OK);
 	}
 
 }

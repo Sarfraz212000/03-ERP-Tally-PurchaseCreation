@@ -12,8 +12,14 @@ public interface PurchaseCreationService {
 
 	public String deletePurchaseById(Integer id);
 
-	public PurchaseCreationEntity updatePurchase(PurchaseCreationEntity entities);
-	
+	public PurchaseCreationEntity updatePurchase(PurchaseCreationEntity entities,Integer purchaseId);
+
 	public List<PurchaseCreationEntity> findAllByCompanyIdAndUserId(Long companyId, Long userId);
+
+	public List<PurchaseCreationEntity> findByCompanyId(Long companyId);
+
+	public List<PurchaseCreationEntity> findByUserId(Long userId);
+	
+	public List<PurchaseCreationEntity> getAllPurchaseCreation();
 
 }

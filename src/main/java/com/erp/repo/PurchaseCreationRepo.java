@@ -9,5 +9,9 @@ import com.erp.entity.PurchaseCreationEntity;
 public interface PurchaseCreationRepo extends JpaRepository<PurchaseCreationEntity, Integer>{
 	
 	public List<PurchaseCreationEntity> findAllByCompanyIdAndUserId(Long companyId, Long userId);
+	
+	List<PurchaseCreationEntity> findAllByCompanyId(Long companyId);
+
+	List<PurchaseCreationEntity> findAllByUserId(Long userId);
 
 }
